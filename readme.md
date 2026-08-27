@@ -1,6 +1,6 @@
 # OrderBookViz
 
-A small Java Swing application that simulates a limit order book and visualizes
+A Java Swing application that simulates a limit order book and visualizes
 it live: a price chart of the evolving mid price and a depth view of the top
 bid/ask levels.
 
