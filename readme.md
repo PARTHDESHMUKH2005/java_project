@@ -4,6 +4,47 @@ A Java Swing application that simulates a limit order book and visualizes
 it live: a price chart of the evolving mid price and a depth view of the top
 bid/ask levels.
 
+## Problem and solution
+
+Understanding how buy and sell orders interact in a market can be difficult
+when the order book is only described theoretically. OrderBookViz solves this
+problem by providing a small, visual simulation of a limit order book. It
+matches incoming orders, maintains bid/ask depth, records the mid-price, and
+updates the visualization in real time.
+
+## Real-world impact
+
+**Yes, at an educational and prototyping level.** The project helps students,
+developers, and finance learners understand market microstructure, order
+matching, liquidity, spreads, and price movement without connecting to a real
+exchange or risking real money. It is not intended for live trading or
+financial decision-making.
+
+## Intended users
+
+- Students learning data structures, trading systems, or financial markets.
+- Developers prototyping order-book and market-simulation ideas.
+- Instructors demonstrating matching engines and market depth visually.
+
+## Technology stack
+
+- **Language:** Java
+- **GUI library:** Java Swing (`JFrame`, `JPanel`, `Timer`, and standard AWT
+  drawing APIs)
+- **Core concepts:** `TreeMap`-based price-level order book, limit-order
+  matching, simulated traders, and real-time chart/depth rendering
+- **Runtime:** JDK 8+; OpenJDK is recommended
+
+This project does use a GUI library: Java Swing. No external dependencies are
+required.
+
+## Team members
+
+| Name | ID |
+|------|----|
+| Parth Deshmukh | 1024031045 |
+| Sanket Kamboj | 1024031042 |
+
 ## What it does
 
 - Maintains a price/time-priority **limit order book** (bids high→low, asks low→high).
