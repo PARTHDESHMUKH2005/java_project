@@ -47,13 +47,22 @@ required.
 
 ## What it does
 
-- Maintains a price/time-priority **limit order book** (bids high→low, asks low→high).
+- Maintains a **limit order book** with price priority (bids high→low, asks low→high);
+  quantities are aggregated per price level.
 - Runs a **market simulation** where trading agents act each tick:
   - a **market maker** posting symmetric two-sided quotes around the mid, and
   - **random traders** submitting randomly sized/priced orders.
-- Renders two panels on a Swing timer (advances every 200 ms):
-  - **PriceChartPanel** — a line chart of mid-price history, and
-  - **OrderBookPanel** — horizontal depth bars for the top bid/ask levels.
+- Renders on a Swing timer (200 ms per step by default, adjustable with the speed slider):
+  - a stats row with best bid/ask, spread, mid price and last trade,
+  - **PriceChartPanel** — a line chart of the recent mid-price history,
+  - **OrderBookPanel** — horizontal depth bars for the top 10 bid/ask levels, and
+  - a list of the most recent trades.
+- Lets you interact with the simulation:
+  - **Place Order** submits your own limit order (side, price, quantity),
+  - **Estimate Impact** shows how a market order of that size would walk the book,
+  - **Pause/Resume** and a **speed slider** control the simulation, and
+  - invalid input (non-numbers, quantity outside 1–1000, price more than 20% away
+    from the mid price) shows a red error message instead of crashing.
 
 ## Project layout
 
@@ -66,6 +75,17 @@ Classes are grouped by relationship, one logical unit per file:
 | `OrderBook.java` | `OrderBook` |
 | `MarketSimulator.java` | `MarketSimulator` |
 | `MainFrame.java` | `MainFrame`, `PriceChartPanel`, `OrderBookPanel` |
+
+## Report
+
+The mini project report is in `report/`: LaTeX source (`OrderBookViz_Report.tex`),
+screenshots (`figures/`) and the compiled `OrderBookViz_Report.pdf`. To rebuild it
+(run twice so the table of contents is complete):
+
+```bash
+cd report
+xelatex OrderBookViz_Report.tex
+```
 
 ## Build
 
@@ -81,5 +101,6 @@ Requires a JDK (tested with OpenJDK). Build artifacts (`*.class`) are gitignored
 java MainFrame
 ```
 
-A window titled **OrderBookViz** opens with the price chart on the left and the
-order-book depth view on the right, updating in real time.
+A window titled **OrderBookViz** opens with the stats row on top, the price chart
+on the left, the order-book depth view and recent trades on the right, and the
+order controls at the bottom, updating in real time.

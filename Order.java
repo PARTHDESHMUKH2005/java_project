@@ -12,6 +12,12 @@ public class Order {
     private final String traderId;
 
     public Order(Side side, double price, int quantity, String traderId) {
+        if (Double.isNaN(price) || Double.isInfinite(price) || price <= 0) {
+            throw new IllegalArgumentException("Price must be a positive number");
+        }
+        if (quantity <= 0) {
+            throw new IllegalArgumentException("Quantity must be greater than 0");
+        }
         this.side = side;
         this.price = price;
         this.quantity = quantity;

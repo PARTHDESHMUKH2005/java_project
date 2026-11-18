@@ -1,4 +1,6 @@
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -10,6 +12,7 @@ public class OrderBook {
 
     private final TreeMap<Double, Integer> bids = new TreeMap<>(Collections.reverseOrder());
     private final TreeMap<Double, Integer> asks = new TreeMap<>();
+    private final List<String> trades = new ArrayList<>();
     private double lastPrice;
 
     public OrderBook(double initialPrice) {
@@ -39,6 +42,7 @@ public class OrderBook {
             order.setQuantity(order.getQuantity() - traded);
             reduce(asks, best.getKey(), traded);
             lastPrice = best.getKey();
+            recordTrade(order, traded, best.getKey());
         }
     }
 
@@ -50,6 +54,7 @@ public class OrderBook {
             order.setQuantity(order.getQuantity() - traded);
             reduce(bids, best.getKey(), traded);
             lastPrice = best.getKey();
+            recordTrade(order, traded, best.getKey());
         }
     }
 
@@ -63,6 +68,13 @@ public class OrderBook {
             side.remove(price);
         } else {
             side.put(price, remaining);
+        }
+    }
+
+    private void recordTrade(Order order, int quantity, double price) {
+        trades.add(0, String.format("%s %s %d @ %.2f", order.getTraderId(), order.getSide(), quantity, price));
+        if (trades.size() > 8) {
+            trades.remove(8);
         }
     }
 
@@ -101,4 +113,5 @@ public class OrderBook {
 
     public TreeMap<Double, Integer> getBids() { return bids; }
     public TreeMap<Double, Integer> getAsks() { return asks; }
+    public List<String> getTrades() { return trades; }
 }
